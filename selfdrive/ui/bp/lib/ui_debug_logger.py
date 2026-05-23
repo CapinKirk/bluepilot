@@ -87,9 +87,21 @@ class BPUIDebugLogger:
     cloudlog.warning(f"BP_UI [{component}] {key}: {prev} -> {new_value}")
 
   def scissor(self, component: str, action: str, x: int = 0, y: int = 0, w: int = 0, h: int = 0):
-    """Log scissor begin/end/reset operations."""
+    """Log scissor begin/end/reset operations — only on transition.
+
+    scissor() is called per render frame (begin+end at 60fps). Without dedup,
+    enabling the debug param emitted ~120 cloudlog.warning() calls/sec from
+    the UI thread, blocking the render loop and starving the rest of the
+    openpilot stack of CPU. Dedup matches the visibility()/state() pattern:
+    only emit when the (action, dims) tuple differs from the prior call.
+    """
     if not self._enabled:
       return
+    key = f"scissor:{component}"
+    cur = (action, x, y, w, h)
+    if self._value_state.get(key) == cur:
+      return
+    self._value_state[key] = cur
     if action == "begin":
       cloudlog.warning(f"BP_UI [{component}] scissor begin x={x} y={y} w={w} h={h}")
     else:
