@@ -334,7 +334,7 @@ class DriverMonitoring:
 
     # Always-on distraction lockout is temporary
     if self.too_distracted or (self.always_on and self.awareness <= self.threshold_prompt):
-      self.current_events.add(EventName.tooDistracted)
+      pass  # NO-DM PATCH: do not emit tooDistracted
 
     always_on_valid = self.always_on and not wrong_gear
     if (driver_engaged and self.awareness > 0 and not self.active_monitoring_mode) or \
@@ -390,7 +390,7 @@ class DriverMonitoring:
       alert = EventName.preDriverDistracted if self.active_monitoring_mode else EventName.preDriverUnresponsive
 
     if alert is not None:
-      self.current_events.add(alert)
+      pass  # NO-DM PATCH: do not emit DM events
 
     if self.dcam_uncertain_cnt > self.settings._DCAM_UNCERTAIN_ALERT_COUNT and not self.dcam_uncertain_alerted:
       set_offroad_alert("Offroad_DriverMonitoringUncertain", True)
