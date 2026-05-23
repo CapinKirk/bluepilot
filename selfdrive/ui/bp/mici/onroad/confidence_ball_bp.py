@@ -94,7 +94,8 @@ class ConfidenceBallBP(ConfidenceBall):
       ball_center_x = content_rect.x + content_rect.width - self._status_dot_radius
 
     # MADS beam (teal bar) only when LAT_ONLY or LONG_ONLY; no bar when ENGAGED
-    if ui_state.status in (UIStatus.LAT_ONLY, UIStatus.LONG_ONLY):
+    from openpilot.common.params import Params
+    if ui_state.status in (UIStatus.LAT_ONLY, UIStatus.LONG_ONLY) and not Params().get_bool("BPHideMadsBeam"):
       color = self.get_lat_long_dot_color()
       color = rl.Color(color.r, color.g, color.b, 150)  # Set alpha for faded background
       self.draw_mads_beam(int(content_rect.x),
