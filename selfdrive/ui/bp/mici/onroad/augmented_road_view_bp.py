@@ -40,6 +40,12 @@ class MiciAugmentedRoadViewBP(AugmentedRoadView, BlindspotRendererMixin):
 
   def _render(self, _):
     """Override render to place confidence ball on left, offset driver state, and conditionally hide border."""
+    # Refresh BPUIDebugLog param state. The generic /bp/onroad/augmented_road_view_bp.py
+    # calls bp_ui_log.tick() at the top of its _render too, but on MICI devices the
+    # generic view never renders — only this MICI subclass does — so without this
+    # explicit tick(), bp_ui_log._enabled stays frozen at its process-startup value
+    # and the BluePilot settings toggle for ui-debug-log silently does nothing.
+    bp_ui_log.tick()
     start_draw = time.monotonic()
     self._switch_stream_if_needed(ui_state.sm)
     self._update_calibration()
