@@ -85,8 +85,12 @@ class WifiFavoriteManager:
           # No favorite set, skip scanning
           continue
         
-        # Verify favorite network is saved in NetworkManager
-        saved_connections = self._wifi_manager._get_connections()
+        # Verify favorite network is saved in NetworkManager. WifiManager exposes
+        # this as the _connections dict (ssid -> conn_path), populated at init via
+        # _init_connections() and kept in sync by _new_connection / _connection_removed
+        # NM signal handlers. There is no _get_connections() method — the prior call
+        # to it threw AttributeError on every favorite-check tick.
+        saved_connections = self._wifi_manager._connections
         if favorite_ssid not in saved_connections:
           cloudlog.debug(f"BluePilot: Favorite network '{favorite_ssid}' is not saved in NetworkManager")
           continue
