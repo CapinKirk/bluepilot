@@ -190,7 +190,7 @@ class NoEntryAlert(Alert):
       alert_text_1, alert_text_2 = alert_text_2, alert_text_1
     super().__init__(alert_text_1, alert_text_2, AlertStatus.normal,
                      AlertSize.mid, Priority.LOW, visual_alert,
-                     AudibleAlert.refuse, 3.)
+                     AudibleAlert.none, 3.)
 
 
 class SoftDisableAlert(Alert):
@@ -198,7 +198,7 @@ class SoftDisableAlert(Alert):
     super().__init__("TAKE CONTROL IMMEDIATELY", alert_text_2,
                      AlertStatus.userPrompt, AlertSize.full,
                      Priority.MID, VisualAlert.steerRequired,
-                     AudibleAlert.warningSoft, 2.),
+                     AudibleAlert.none, 2.),
 
 
 # less harsh version of SoftDisable, where the condition is user-triggered
