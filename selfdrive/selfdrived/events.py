@@ -334,51 +334,27 @@ EVENTS: dict[int, dict[str, Alert | AlertCallbackType]] = {
   },
 
   EventName.preDriverDistracted: {
-    ET.PERMANENT: Alert(
-      "Pay Attention",
-      "",
-      AlertStatus.normal, AlertSize.small,
-      Priority.LOW, VisualAlert.none, AudibleAlert.none, .1),
+    ET.PERMANENT: Alert("", "", AlertStatus.normal, AlertSize.none, Priority.LOWEST, VisualAlert.none, AudibleAlert.none, 0.),
   },
 
   EventName.promptDriverDistracted: {
-    ET.PERMANENT: Alert(
-      "Pay Attention",
-      "Driver Distracted",
-      AlertStatus.userPrompt, AlertSize.mid,
-      Priority.MID, VisualAlert.steerRequired, AudibleAlert.promptDistracted, .1),
+    ET.PERMANENT: Alert("", "", AlertStatus.normal, AlertSize.none, Priority.LOWEST, VisualAlert.none, AudibleAlert.none, 0.),
   },
 
   EventName.driverDistracted: {
-    ET.PERMANENT: Alert(
-      "DISENGAGE IMMEDIATELY",
-      "Driver Distracted",
-      AlertStatus.critical, AlertSize.full,
-      Priority.HIGH, VisualAlert.steerRequired, AudibleAlert.warningImmediate, .1),
+    ET.PERMANENT: Alert("", "", AlertStatus.normal, AlertSize.none, Priority.LOWEST, VisualAlert.none, AudibleAlert.none, 0.),
   },
 
   EventName.preDriverUnresponsive: {
-    ET.PERMANENT: Alert(
-      "Touch Steering Wheel: No Face Detected",
-      "",
-      AlertStatus.normal, AlertSize.small,
-      Priority.LOW, VisualAlert.steerRequired, AudibleAlert.none, .1),
+    ET.PERMANENT: Alert("", "", AlertStatus.normal, AlertSize.none, Priority.LOWEST, VisualAlert.none, AudibleAlert.none, 0.),
   },
 
   EventName.promptDriverUnresponsive: {
-    ET.PERMANENT: Alert(
-      "Touch Steering Wheel",
-      "Driver Unresponsive",
-      AlertStatus.userPrompt, AlertSize.mid,
-      Priority.MID, VisualAlert.steerRequired, AudibleAlert.promptDistracted, .1),
+    ET.PERMANENT: Alert("", "", AlertStatus.normal, AlertSize.none, Priority.LOWEST, VisualAlert.none, AudibleAlert.none, 0.),
   },
 
   EventName.driverUnresponsive: {
-    ET.PERMANENT: Alert(
-      "DISENGAGE IMMEDIATELY",
-      "Driver Unresponsive",
-      AlertStatus.critical, AlertSize.full,
-      Priority.HIGH, VisualAlert.steerRequired, AudibleAlert.warningImmediate, .1),
+    ET.PERMANENT: Alert("", "", AlertStatus.normal, AlertSize.none, Priority.LOWEST, VisualAlert.none, AudibleAlert.none, 0.),
   },
 
   EventName.manualRestart: {
@@ -653,8 +629,7 @@ EVENTS: dict[int, dict[str, Alert | AlertCallbackType]] = {
   },
 
   EventName.seatbeltNotLatched: {
-    ET.SOFT_DISABLE: user_soft_disable_alert("Seatbelt Unlatched"),
-    ET.NO_ENTRY: NoEntryAlert("Seatbelt Unlatched"),
+    ET.PERMANENT: Alert("", "", AlertStatus.normal, AlertSize.none, Priority.LOWEST, VisualAlert.none, AudibleAlert.none, 0.),
   },
 
   EventName.espDisabled: {
@@ -854,18 +829,10 @@ EVENTS: dict[int, dict[str, Alert | AlertCallbackType]] = {
 if HARDWARE.get_device_type() == 'mici':
   EVENTS.update({
     EventName.preDriverDistracted: {
-      ET.PERMANENT: Alert(
-        "Pay Attention",
-        "",
-        AlertStatus.normal, AlertSize.small,
-        Priority.LOW, VisualAlert.none, AudibleAlert.none, 2),
+      ET.PERMANENT: Alert("", "", AlertStatus.normal, AlertSize.none, Priority.LOWEST, VisualAlert.none, AudibleAlert.none, 0.),
     },
     EventName.promptDriverDistracted: {
-      ET.PERMANENT: Alert(
-        "Pay Attention",
-        "Driver Distracted",
-        AlertStatus.userPrompt, AlertSize.mid,
-        Priority.MID, VisualAlert.steerRequired, AudibleAlert.promptDistracted, 1),
+      ET.PERMANENT: Alert("", "", AlertStatus.normal, AlertSize.none, Priority.LOWEST, VisualAlert.none, AudibleAlert.none, 0.),
     },
     EventName.resumeRequired: {
       ET.WARNING: Alert(
